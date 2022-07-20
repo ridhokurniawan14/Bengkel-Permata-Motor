@@ -1,0 +1,12 @@
+[01-Jan-2022 06:51:42 UTC] PHP Warning:  mysqli_connect(): (28000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/u1036689/public_html/bengkel.lkpptcc.id/views/proses.php on line 9
+[01-Jan-2022 06:51:42 UTC] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, bool given in /home/u1036689/public_html/bengkel.lkpptcc.id/views/proses.php on line 11
+[01-Jan-2022 06:51:42 UTC] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, null given in /home/u1036689/public_html/bengkel.lkpptcc.id/views/proses.php on line 16
+[17-Apr-2022 09:22:25 Asia/Jakarta] PHP Warning:  mysqli_connect(): (28000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/u1036689/public_html/bengkel.lkpptcc.id/views/proses.php on line 9
+[17-Apr-2022 09:22:25 Asia/Jakarta] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, bool given in /home/u1036689/public_html/bengkel.lkpptcc.id/views/proses.php on line 11
+[17-Apr-2022 09:22:25 Asia/Jakarta] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, null given in /home/u1036689/public_html/bengkel.lkpptcc.id/views/proses.php on line 16
+[17-Apr-2022 16:02:10 Asia/Jakarta] PHP Warning:  mysqli_connect(): (28000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/u1036689/public_html/bengkel.lkpptcc.id/views/proses.php on line 9
+[17-Apr-2022 16:02:10 Asia/Jakarta] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, bool given in /home/u1036689/public_html/bengkel.lkpptcc.id/views/proses.php on line 11
+[17-Apr-2022 16:02:10 Asia/Jakarta] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, null given in /home/u1036689/public_html/bengkel.lkpptcc.id/views/proses.php on line 16
+[17-Apr-2022 16:03:11 Asia/Jakarta] PHP Warning:  mysqli_connect(): (28000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/u1036689/public_html/bengkel.lkpptcc.id/views/proses.php on line 9
+[17-Apr-2022 16:03:11 Asia/Jakarta] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, bool given in /home/u1036689/public_html/bengkel.lkpptcc.id/views/proses.php on line 11
+[17-Apr-2022 16:03:11 Asia/Jakarta] PHP Warning:  mysqli_fetch_array() expects parameter 1 to be mysqli_result, null given in /home/u1036689/public_html/bengkel.lkpptcc.id/views/proses.php on line 16
