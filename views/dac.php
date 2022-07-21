@@ -64,6 +64,12 @@
 		<?php 
 		}
 		?>
+		<tr>
+			<td align="right" colspan="6"><b>TOTAL</b></td>            
+			<td><?= $qry2[0] ?></td>			
+			<td>-</td>			
+			<td><?= $qry2[1] ?></td>			
+		</tr>
 	</table>
 </body>
 </html>

@@ -188,13 +188,45 @@ class database {
 	{
 		//query		
 		$list = array();
-		$a = mysqli_query($con, "SELECT * FROM tb_barang ORDER BY id_barang DESC");
+		$a = mysqli_query($con, "SELECT *, stok*hrg_beli as tot_hrg_beli, stok*hrg_jual as tot_hrg_jual
+		FROM tb_barang 
+		ORDER BY id_barang DESC");
 
 		while($data = mysqli_fetch_array($a))
 		{
 			$list[] = $data;
 		}
 		return $list;	
+	}
+	function tampil_total_semua_hrg_brg($con)
+	{
+		$dt="SELECT sum(stok*hrg_beli) as tot_hrg_beli, sum(stok*hrg_jual) as tot_hrg_jual
+		FROM tb_barang b				
+		ORDER BY id_barang DESC";
+		$data = mysqli_fetch_array(mysqli_query($con,$dt));
+		return $data;
+	}
+	function tampil_data_brg_perjenis($con,$jenis)
+	{
+		//query		
+		$list = array();
+		$a = mysqli_query($con, "SELECT *, stok*hrg_beli as tot_hrg_beli, stok*hrg_jual as tot_hrg_jual
+		FROM tb_barang b				
+		WHERE b.jns_brg = '$jenis' ORDER BY b.jns_brg DESC");
+
+		while($data = mysqli_fetch_array($a))
+		{
+			$list[] = $data;
+		}
+		return $list;	
+	}
+	function tampil_total_hrg_brg($con,$jenis)
+	{
+		$dt="SELECT sum(stok*hrg_beli) as tot_hrg_beli, sum(stok*hrg_jual) as tot_hrg_jual
+		FROM tb_barang b				
+		WHERE b.jns_brg = '$jenis' ORDER BY b.jns_brg DESC";
+		$data = mysqli_fetch_array(mysqli_query($con,$dt));
+		return $data;
 	}
 	function tampil_detbrg($con,$id)
 	{
@@ -414,7 +446,7 @@ class database {
 				mysqli_query($con,"INSERT INTO tb_transaksi_detail VALUES ('$nota_terakhir','$r[1]','$r[2]','$r[3]','$r[4]')");            				
 			}
 			mysqli_query($con,"truncate table tb_transaksi_sementara");			
-			echo '<script>window.open( "?p=print_transaksi" );</script>','<script>alert("Data Berhasil Disimpan");window.location.href="?p=trns";</script>';
+			echo '<script>window.open( "?p=print_transaksi" );</script>','<script>alert("Data Berhasil Disimpan");window.location.href="?p=trns";</script>';			
 			// echo '<script>window.open("?p=print_transaksi", "Print Nota", "height=700, width=500, scrollbars=yes");</script>';			
 		}
 		else 
@@ -499,6 +531,17 @@ class database {
 			$list[] = $data;
 		}
 		return $list;	
+	}
+	function totaldanlaba($con,$dari,$ke)
+	{
+		//query				
+		$a = mysqli_fetch_array(mysqli_query($con, "SELECT sum(td.subtotal) as total,sum(td.qty * b.untung) as laba
+		FROM tb_transaksi t, tb_transaksi_detail td, tb_barang b
+		WHERE t.tgl_transaksi BETWEEN '$dari' and '$ke'
+		AND t.no_nota = td.no_nota
+		AND td.id_barang = b.id_barang
+		ORDER BY t.no_nota DESC"));		
+		return $a;	
 	}
 	function tampil_data_transaksi_satu($con,$no_nota)
 	{
@@ -604,9 +647,14 @@ class database {
 	}
 	function tampil_jumlah($con)
 	{
-
-		$a = mysqli_num_rows(mysqli_query($con, "SELECT * from tb_transaksi order by no_nota DESC"));
-
+		$tgl_hari_ini = date("Y-m-d");
+		$a = mysqli_num_rows(mysqli_query($con, "SELECT * from tb_transaksi WHERE tgl_transaksi = '$tgl_hari_ini' order by no_nota DESC"));
+		$pengeluaran_hari_ini = mysqli_fetch_array(mysqli_query($con, "SELECT sum(total_bayar) as pengeluaran from tb_pembelian WHERE tgl_beli = '$tgl_hari_ini' order by no_nota DESC"));			
+		$penjualan = mysqli_fetch_array(mysqli_query($con, "SELECT sum(t.total) as pendapatan_hari_ini, sum(td.qty * b.untung) as laba
+		from tb_transaksi t
+		JOIN tb_transaksi_detail td ON t.no_nota = td.no_nota
+		JOIN tb_barang b ON td.id_barang = b.id_barang
+		WHERE t.tgl_transaksi = '$tgl_hari_ini' order by t.no_nota DESC"));
 		// BANYAK STOK
 		$accu = mysqli_fetch_array(mysqli_query($con, "SELECT SUM(stok) AS stok FROM tb_barang WHERE jns_brg = 'accu'"));	
 		$ban = mysqli_fetch_array(mysqli_query($con, "SELECT SUM(stok) AS stok FROM tb_barang WHERE jns_brg = 'ban'"));	
@@ -629,7 +677,17 @@ class database {
 		AND t.no_nota = td.no_nota
 		AND td.id_barang = b.id_barang"));	
 
-		return array($a,$accu[0],$ban[0],$oli[0],$bpaccu,$bpban,$bpoli);
+		return array($a,$pengeluaran_hari_ini[0],$penjualan[0],$penjualan[1],$accu[0],$ban[0],$oli[0],$bpaccu,$bpban,$bpoli);
+	}
+	function grafik_laba_penjualan($con,$bulan)
+	{
+		$data = mysqli_fetch_array(mysqli_query($con,"SELECT sum(td.qty * b.untung) as total_untung
+		FROM tb_transaksi t, tb_transaksi_detail td, tb_barang b
+		WHERE MONTH(t.tgl_transaksi) =  '$bulan'
+		AND t.no_nota = td.no_nota
+		AND td.id_barang = b.id_barang				
+		ORDER BY t.no_nota DESC"));
+		return $data;
 	}
 }
 class PassHash {

@@ -78,38 +78,22 @@ $_SESSION['start_time'] = time();
     </ul>
 
     <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
-      
-
-      <!-- Notifications Dropdown Menu -->
-      <!-- <li class="nav-item dropdown">
+    <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">        
+      <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">2</span>
+          Hai, <?= ucwords($_SESSION["nama"]) ?> &nbsp;&nbsp;&nbsp;<i class="fas fa-bars"></i>             
         </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">2 Notifications</span>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">          
+          <a href="?p=gp" class="dropdown-item">
+            <i class="fas fa-key mr-1"></i> Ganti Password
           </a>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
+          <a href="?p=out" class="dropdown-item">
+            <i class="fas fa-sign-out-alt mr-1"></i> Logout
           </a>          
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
-      </li>      
-      <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-          <i class="fas fa-th-large"></i>
-        </a>
-      </li>
-    </ul> -->
+      </li> 
+    </ul>
   </nav>
   <!-- /.navbar -->
 
@@ -243,22 +227,7 @@ $_SESSION['start_time'] = time();
                 </a>
               </li>               -->
             </ul>
-          </li>
-          <li class="nav-header">Menu</li>
-          <li class="nav-item">
-            <a href="?p=gp" class="nav-link <?php if($p == 'gp') echo "active" ?>">
-              <i class="nav-icon fa fa-user"></i>
-              <p>
-                Ganti Password
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="?p=out" class="nav-link">
-              <i class="nav-icon far fa-circle text-danger"></i>
-              <p class="text">Logout</p>
-            </a>
-          </li>          
+          </li>                    
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

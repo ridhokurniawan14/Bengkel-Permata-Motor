@@ -1,7 +1,7 @@
 <?php
 $hostDB = "localhost";
-$usernameDB = "u1036689_ptcc";
-$passwordDB = "litaridho12345";
+$usernameDB = "root";
+$passwordDB = "";
 $namaDB = "u1036689_abo";
 date_default_timezone_set('Asia/Jakarta');
 

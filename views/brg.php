@@ -114,7 +114,7 @@
 
                   <div class="card-footer">
                     <?php if(!empty($_GET['e'])){ ?><button name="update" type="submit" class="btn btn-primary">Update</button><?php }else{ ?><button name="save" type="submit" class="btn btn-primary">Simpan</button><?php } ?>
-                    <a href="?p=brg"><button class="btn btn-default float-right">Cancel</button></a>
+                    <a href="?p=brg"><button type="button" class="btn btn-default float-right">Cancel</button></a>
                   </div>
                 </form>
                 <?php } ?>
@@ -131,15 +131,51 @@
                 <h3 class="card-title">Data Barang</h3>
               </div>
               <!-- /.card-header -->
+              <div class="card-header">                                    
+                  <form action="" method="post">
+                  <div class="row">
+                      <div class="col-md-5">
+                        <div class="form-group row">
+                          <label class="col-sm-2 col-form-label">Jenis Barang</label>
+                          <div class="col-sm-10">
+                            <select name="jenis" autofocus class="form-control select2" style="width: 100%;" required>
+                              <option value="all" selected="selected">Semua Barang</option>
+                              <option value="accu">Accu</option>
+                              <option value="ban">Ban</option>
+                              <option value="oli">Oli</option>             
+                            </select> 
+                          </div>
+                        </div>
+                      </div>                      
+                      <div class="col-md-2">
+                        <div class="form-group row">
+                          <div class="col-sm-12">                            
+                            <button type="submit" name="filter" class="btn btn-primary col-sm-12">FILTER</button>
+                          </div>
+                        </div>
+                      </div>
+                      <?php if(isset($_POST['filter'])) { ?>
+                      <div class="form-group col-sm-5">
+                        <a target="_blank" href="?p=lpdf-brg&jenis=<?= $jenis ?>">
+                          <button type="button" name="filter" class="btn btn-success col-sm-12">Download</button>
+                        </a>
+                      </div>                        
+                      <?php } ?>
+                  </div>    
+                  </form>    
+              </div>
               <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
+                <table id="example1" class="table table-bordered table-striped">                  
                   <thead>
                   <tr>
                     <th>No</th>
                     <th>Jenis Barang</th>
                     <th>Nama Barang</th>                    
                     <th>Stok</th>       
+                    <th>Harga Beli</th>                           
                     <th>Harga Jual</th>                           
+                    <th>Total Harga Beli</th>                           
+                    <th>Total Harga Jual</th>
                     <th></th>             
                   </tr>
                   </thead>
@@ -154,7 +190,10 @@
                     <td><?= ucwords($isi[1]) ?></td>
                     <td><?= ucwords($isi[3]).' ('.ucwords($isi[2]).')' ?></td>
                     <td><?= $isi[4] ?></td>
+                    <td>Rp. <?= number_format($isi[5]) ?></td>
                     <td>Rp. <?= number_format($isi[6]) ?></td>
+                    <td>Rp. <?= number_format($isi[8]) ?></td>
+                    <td>Rp. <?= number_format($isi[9]) ?></td>
                     <td>
                       <div class="btn-group">
                         <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

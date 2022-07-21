@@ -48,6 +48,16 @@ while ($row = mysqli_fetch_array($d)){
     $pdf->Cell(33,6,number_format($row[17]),1,0);
     $pdf->Cell(15,6,number_format($laba),1,1); 
 }
+$pdf->Cell(10,6,'',0,0);
+$pdf->Cell(27,6,'',0,0);
+$pdf->Cell(17,6,'',0,0);
+$pdf->Cell(45,6,'',0,0);
+$pdf->Cell(21,6,'',0,0);
+$pdf->Cell(10,6,'TOTAL',1,0);
+$pdf->Cell(15,6,number_format($qry2[0]),1,0);
+$pdf->Cell(33,6,'-',1,0);
+$pdf->Cell(15,6,number_format($qry2[1]),1,1); 
 
-$pdf->Output();
+// $pdf->Output();
+$pdf->Output('I','Data Transaksi Barang per tanggal '.$ke.'.pdf');
 ?>

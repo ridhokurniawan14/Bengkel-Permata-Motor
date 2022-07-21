@@ -7,6 +7,16 @@ if(!empty($_GET["p"]))
 		
 	if($p == "dsb") // HALAMAN DASHBOARD
 	{
+		$label = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+    
+		for($bulan = 1;$bulan < 13;$bulan++)
+		{
+			$row = $database -> grafik_laba_penjualan($con,$bulan);			
+			$jumlah_produk[] = $row['total_untung'];
+		}
+		$tgl   = date("Y-m-d");		
+		$tgl_kas   = $database -> tgl_indo($tgl);		
+		$thn = date("Y");
 		$tot = $database -> tampil_jumlah($con);
 
 		include("views/bd.php");
@@ -175,12 +185,27 @@ if(!empty($_GET["p"]))
 			$untung  = mysqli_real_escape_string($con, $_POST["untung"]);
 			$save    = $database -> save_brg($con,$jenis,$merk,$nm,$stok,$hb,$hj,$untung);
 		}
-		if(!empty($_GET["d"]))
+		elseif(isset($_POST['filter']))
+		{			
+			$jenis   = mysqli_real_escape_string($con, strtolower($_POST["jenis"]));
+
+			if($jenis == 'all') 
+			{
+				$data    = $database -> tampil_data_brg($con);
+				$d = array('','','','','','','','');
+			}
+			else
+			{
+				$data    = $database -> tampil_data_brg_perjenis($con,$jenis);				
+				$d = array('','','','','','','','');
+			}
+		}
+		elseif(!empty($_GET["d"]))
 		{
 			$kd = $_GET["d"];
 			$database -> hapus_brg($con,$kd);
 		}
-		if(!empty($_GET['e'])) //edit
+		elseif(!empty($_GET['e'])) //edit
 		{
 			$id = $_GET['e'];
 			$d = $database -> tampil_satu_data_brg($con,$id);
@@ -267,7 +292,7 @@ if(!empty($_GET["p"]))
 				}
 			}	
 		}
-		if(!empty($_GET["d"]))
+		elseif(!empty($_GET["d"]))
 		{
 			$kd = $_GET["d"];			
 			$d = $database -> tampil_satu_data_bb($con,$kd);
@@ -275,7 +300,7 @@ if(!empty($_GET["p"]))
 			$database -> hapus_bb($con,$kd);
 			
 		}
-		if(!empty($_GET['e'])) //edit
+		elseif(!empty($_GET['e'])) //edit
 		{
 			$id = $_GET['e'];
 			$d = $database -> tampil_satu_data_bb($con,$id);
@@ -368,12 +393,12 @@ if(!empty($_GET["p"]))
 				$save    = $database -> save_transaksi_sementara($con,$kode,$qty,$hrg,$subtotal,$sisa_stok);
 			}			
 		}
-		if(!empty($_GET["d"]))
+		elseif(!empty($_GET["d"]))
 		{
 			$kd = $_GET["d"];						
 			$database -> hapus_transaksi_sementara($con,$kd);			
 		}
-		if(isset($_POST['proses_bayar']))
+		elseif(isset($_POST['proses_bayar']))
 		{
 
 			$diskon        = mysqli_real_escape_string($con, $_POST["diskon"]);
@@ -527,6 +552,7 @@ if(!empty($_GET["p"]))
 			$ke      = mysqli_real_escape_string($con, $_GET["ke"]);
 			
 			$qry     = $database -> download_laporan($con,$dari,$ke);
+			$qry2     = $database -> totaldanlaba($con,$dari,$ke);
 		}
 		include("views/dac.php");
 	}
@@ -549,8 +575,28 @@ if(!empty($_GET["p"]))
 			$ke      = mysqli_real_escape_string($con, $_GET["ke"]);
 			
 			$qry     = $database -> download_laporan($con,$dari,$ke);
+			$qry2     = $database -> totaldanlaba($con,$dari,$ke);
 		}
 		include("views/lpdf.php");
+	}
+	elseif ($p == "lpdf-brg")
+	{
+		if(!empty($_GET["jenis"]))
+		{	
+			$jenis       = strtolower($_GET["jenis"]);
+			
+			if($jenis == 'all') 
+			{
+				$data    = $database -> tampil_data_brg($con);				
+				$qry2    = $database -> tampil_total_semua_hrg_brg($con);
+			}
+			else
+			{
+				$data    = $database -> tampil_data_brg_perjenis($con,$jenis);								
+				$qry2    = $database -> tampil_total_hrg_brg($con,$jenis);
+			}
+		}
+		include("views/lpdf-brg.php");
 	}
 	//HALAMAN LOGOUT
 	else if($p == "out")

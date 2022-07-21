@@ -377,6 +377,6 @@
             }            
     }
     function open(url){
-      var win = window.open("?p=print_transaksi", "Print Nota", "height=700, width=500, scrollbars=yes");      
+      var win = window.open("?p=print_transaksi", "Print Nota", "height=700, width=500, scrollbars=yes");
     }
     </script>      
