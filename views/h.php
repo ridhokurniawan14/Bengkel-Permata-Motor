@@ -57,6 +57,13 @@
 		          			<p class="text-center">Tidak punya akun? <a target="_blank" href="https://wa.me/6285230856165">Hubungi Pemilik</a></p>
 						</div>
 					</div>
+					</p>
+					<div class="separator">
+						<div class="clearfix"></div>
+						<div>
+						<center><p>©<?php $t = getdate(); echo $t['year']; ?> All Rights Reserved. <br>Created by <b><a target="_blank" href="https://www.instagram.com/ridhoo_kurniawaan/"> Ridho Kurniawan</a></b> Privacy and Terms</p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
